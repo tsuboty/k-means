@@ -31,12 +31,10 @@ def calcMinDistance(centers,data):
 #所属ラベルの計算
 def calcBelong(dist, min_column,label):
 	column_num = dist.ndim + 1
-	print column_num
 	for i in range(len(dist)):
 		for j in range(column_num):
 			if (dist.iat[i,j] == min_column[i]):
 				label[i] = j
-
 	return label
 
 
@@ -44,7 +42,6 @@ def calcBelong(dist, min_column,label):
 def calcCenter(data,dist,label):
 	new_center = np.array([[0.0,0.0]] * (len(dist.ix[0,:])))
 	num_points = [0] * len(dist.ix[0,:])
-
 
 	for i in range(len(data)):
 		new_center[int(label.at[i]),0] += data.ix[i:i].x

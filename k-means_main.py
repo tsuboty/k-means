@@ -11,18 +11,18 @@ from kmeans_funcs import *
 
 #########初期値の設定###############
 #dataFrame化
-data = readData("./data.csv")
+data = readData("./data/data.csv")
 # data = np.array(data)
 # 初期値の設定
 centers = setInitialPoint(3,data)
 # 所属ベクトル初期設定
 label = pd.Series(np.ones(len(data)))
 
-##################
-##################
+#################################
+#################################
 
 
-def k_means_one(centers,data):
+def k_means_one(centers,data,label):
 	#データ距離の計算
 	dist = calcMinDistance(centers,data)
 	# データフレーム化
@@ -36,7 +36,24 @@ def k_means_one(centers,data):
 
 	return (new_center,label)
 
+centers,label = k_means_one(centers,data,label)
 
-plt.scatter(data["x"],data["y"],c="r")
-plt.scatter(new_center[:,0],new_center[:,1],c="b",s=120)
+# 50回繰り返す
+for i in range(50):
+	centers,label = k_means_one(centers,data,label)
+
+# クラスター化
+
+clusters = [[0],[0],[0]]
+for i in range(len(label)):
+	index = int(label[i])
+	clusters[index].append(data.ix[i:i])
+	plt.plot
+
+c_set = ["r","g","b"]
+for i in range(len(clusters)):
+	for point in clusters[i][1:]:
+		plt.scatter(point.x,point.y,c=c_set[i],s=80)
+
+plt.scatter(centers[:,0],centers[:,1],c="b",s=120)
 plt.show()
