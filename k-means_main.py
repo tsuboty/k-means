@@ -10,11 +10,14 @@ from kmeans_funcs import *
 ##########################################
 
 #########初期値の設定###############
+CLUSTER_NUM = 3
+ROOP_TIME = 1000
+
 #dataFrame化
 data = readData("./data/data.csv")
 # data = np.array(data)
 # 初期値の設定
-centers = setInitialPoint(3,data)
+centers = setInitialPoint(CLUSTER_NUM,data)
 # 所属ベクトル初期設定
 label = pd.Series(np.ones(len(data)))
 
@@ -39,12 +42,16 @@ def k_means_one(centers,data,label):
 centers,label = k_means_one(centers,data,label)
 
 # 50回繰り返す
-for i in range(50):
+for i in range(ROOP_TIME):
 	centers,label = k_means_one(centers,data,label)
+	print str(i) + " times clustering"
+
+print "----center is ----"
+print centers
 
 # クラスター化
+clusters = [[0] for i in range(CLUSTER_NUM)]
 
-clusters = [[0],[0],[0]]
 for i in range(len(label)):
 	index = int(label[i])
 	clusters[index].append(data.ix[i:i])
