@@ -29,10 +29,11 @@ def calcMinDistance(centers,data):
 	return dist
 
 #所属ラベルの計算
-def calcBelong(dist, min_column,label):
-	column_num = dist.ndim + 1
+def calcBelong(dist, min_column,label,CLUSTER_NUM):
+
+
 	for i in range(len(dist)):
-		for j in range(column_num):
+		for j in range(CLUSTER_NUM):
 			if (dist.iat[i,j] == min_column[i]):
 				label[i] = j
 	return label
